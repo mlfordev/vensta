@@ -15,7 +15,7 @@ class AdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', null, ['attr' => ['maxlength' => 255]])
             ->add('text')
             ->add('image', FileType::class, [
                 'label' => 'Picture (image file)',

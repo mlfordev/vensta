@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AdRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdRepository::class)]
 class Ad
@@ -13,13 +14,19 @@ class Ad
     #[ORM\Column(type: 'integer')]
     private ?int $id;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'This value should not be longer than {{ limit }} characters',
+    )]
     #[ORM\Column(type: 'string', length: 255)]
     private string $title;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'text')]
     private string $text;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 512, nullable: true)]
     private string $image;
 
     public function getId(): ?int
