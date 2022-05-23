@@ -49,8 +49,12 @@ class AdController extends AbstractController
     #[Route('view/{pageId<\d+>?1}', name: 'ad_show', methods: ['GET'])]
     public function show(int $pageId): Response
     {
+        $ad = $this->adRepository->find($pageId);
+        if (!$ad) {
+            throw $this->createNotFoundException();
+        }
         return $this->render('ad/show.html.twig', [
-            'page_id' => $pageId,
+            'ad' => $ad,
         ]);
     }
 

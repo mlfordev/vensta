@@ -12,7 +12,7 @@ class Ad
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private ?int $id;
+    private ?int $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -27,7 +27,7 @@ class Ad
     private string $text;
 
     #[ORM\Column(type: 'string', length: 512, nullable: true)]
-    private string $image;
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -63,7 +63,7 @@ class Ad
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
