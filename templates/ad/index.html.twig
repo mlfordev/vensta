@@ -4,6 +4,30 @@
     <div class="container">
         <div class="row">
             <h1>Ads</h1>
+            <ul class="list-unstyled">
+                {% for item in ads %}
+                    <li><a href="{{ path('ad_show', {pageId: item.id}) }}">{{ item.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="row">
+            <div class="pager">
+                {% if pager.first is defined %}
+                    <a href="{{ pager.first }}">first</a>
+                {% endif %}
+                {% if pager.prev is defined %}
+                    <a href="{{ pager.prev }}">prev</a>
+                {% endif %}
+                {% if pager.current is defined %}
+                    <span>{{ pager.current }}</span>
+                {% endif %}
+                {% if pager.next is defined %}
+                    <a href="{{ pager.next }}">next</a>
+                {% endif %}
+                {% if pager.last is defined %}
+                    <a href="{{ pager.last }}">last</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

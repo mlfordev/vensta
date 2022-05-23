@@ -3,10 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Ad;
+use App\Lib\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @extends ServiceEntityRepository<Ad>
@@ -47,32 +50,23 @@ class AdRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Ad[] Returns an array of Ad objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getPagination(UrlGeneratorInterface $router, int $page): Pagination
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $queryBuilder = $this->dbalListQueryBuilder();
+        return new Pagination($queryBuilder, $router, $page);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Ad
+    protected function dbalListQueryBuilder(): QueryBuilder
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $queryBuilder = $this->dbalQueryBuilder();
+        $queryBuilder
+            ->select('*')
+            ->from('ad', 'a');
+        return $queryBuilder;
     }
-    */
+
+    protected function dbalQueryBuilder(): QueryBuilder
+    {
+        return $this->_em->getConnection()->createQueryBuilder();
+    }
 }
