@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Ads{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row">
             <h1>Ads</h1>
+            <p><a href="{{ path('ad_create') }}"><small>+ New</small></a></p>
             <ul class="list-unstyled">
                 {% for item in ads %}
                     <li><a href="{{ path('ad_show', {pageId: item.id}) }}">{{ item.title }}</a></li>

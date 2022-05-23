@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Create Ad{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row">
+            <h1>Create Ad</h1>
             {{ form(form) }}
+            <p>
+                <a href="{{ path('ad_index') }}"><- To List</a>
+            </p>
         </div>
     </div>
 {% endblock %}
